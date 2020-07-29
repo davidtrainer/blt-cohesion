@@ -22,6 +22,13 @@ class CohesionCommands extends BltTasks {
       ->run();
 
     if(trim($result->getMessage()) === "Enabled") {
+      // Rebuild cache.
+      $result = $this->taskDrush()
+        ->stopOnFail()
+        ->alias("self")
+        ->drush("cr")
+        ->run();
+
       // Import cohesion assets from the API.
       $result = $this->taskDrush()
         ->stopOnFail()
